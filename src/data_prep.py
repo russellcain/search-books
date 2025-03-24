@@ -1,7 +1,7 @@
 import json
 
 # Open and read the JSON file
-with open('./data/formattedBooks.json', 'r') as file:
+with open('./data/rawBooks.json', 'r') as file:
     data = json.load(file)
 
 # Print the data
@@ -11,8 +11,8 @@ print(f"ingested: {len(data)} books")
 
 cleanedBooks = []
 for book in data:
-    newBook = {}
-    newBook['_id'] = book['isbn13']
+    newBook = {'meta': {}}
+    newBook['isbn'] = book['isbn13']
     newBook['full_title'] = str(book['title']) + (f': {book["subtitle"]}' if bool(book['subtitle']) else '')
     newBook['authors'] = book['authors'].split(';')
     newBook['categories'] = book['categories']
@@ -21,6 +21,7 @@ for book in data:
     newBook['friendly_rating'] = int(float(book.get('average_rating', 0)) + .50) if book['average_rating'] else 0
     newBook['num_pages'] = book['num_pages']
     newBook['ratings_count'] = book['ratings_count']
+    newBook['meta']['rating'] = book.get('average_rating', 0.0)
     newBook['meta']['thumbnail'] = book['thumbnail']
     cleanedBooks.append(newBook)
 

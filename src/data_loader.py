@@ -1,6 +1,6 @@
 import json
 
-cleanDataPath = './data/cleanedBooks.json'  # expected to run this file from root
+cleanDataPath = './data/cleanedBook.json'  # expected to run this file from root
 # Open and read the JSON file
 with open(cleanDataPath, 'r') as file:
     data = json.load(file)
